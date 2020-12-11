@@ -1,0 +1,77 @@
+PODS:
+  - Alamofire (5.4.0)
+  - BigInt (5.2.0)
+  - CryptoSwift (1.3.8)
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
+  - SwiftProtobuf (1.14.0)
+  - TrezorCrypto (0.0.9)
+  - TrustCore (0.2.2):
+    - BigInt
+    - SwiftProtobuf (~> 1.0)
+    - TrezorCrypto (~> 0.0.8)
+  - TrustKeystore (0.5.1):
+    - BigInt
+    - CryptoSwift
+    - TrezorCrypto
+    - TrustCore (~> 0.2.2)
+
+DEPENDENCIES:
+  - BigInt
+  - CryptoSwift
+  - Moya
+  - PromiseKit
+  - TrustCore (from `https://github.com/TrustWallet/trust-core`, branch `master`)
+  - TrustKeystore (from `https://github.com/TrustWallet/trust-keystore`, branch `master`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - BigInt
+    - CryptoSwift
+    - Moya
+    - PromiseKit
+    - SwiftProtobuf
+    - TrezorCrypto
+
+EXTERNAL SOURCES:
+  TrustCore:
+    :branch: master
+    :git: https://github.com/TrustWallet/trust-core
+  TrustKeystore:
+    :branch: master
+    :git: https://github.com/TrustWallet/trust-keystore
+
+CHECKOUT OPTIONS:
+  TrustCore:
+    :commit: 833ec3f263bb9b257b6ec04359cb98d1bae7cf17
+    :git: https://github.com/TrustWallet/trust-core
+  TrustKeystore:
+    :commit: df889639e29d0222062e9829589bbd7355db3ab7
+    :git: https://github.com/TrustWallet/trust-keystore
+
+SPEC CHECKSUMS:
+  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
+  BigInt: f668a80089607f521586bbe29513d708491ef2f7
+  CryptoSwift: 01b0f0cba1d5c212e5a335ff6c054fb75a204f00
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  SwiftProtobuf: ed465ed18402f998fd117f631da27e0168e6b59c
+  TrezorCrypto: bfeea47a052dca2c77d4a39e1e183865e52de14d
+  TrustCore: 378c82221f4d28a75da133d049710f5030427176
+  TrustKeystore: 02dbee52610eb631df44be0fddd33e212b8ab6e6
+
+PODFILE CHECKSUM: e84554993275af4f706583e0f61b2f057764c769
+
+COCOAPODS: 1.10.0
