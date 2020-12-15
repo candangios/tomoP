@@ -25,49 +25,30 @@ class TomoPEncoder{
            let encoder = ABIEncoder()
            try! encoder.encode(function: function, arguments: [index])
            return encoder.data
-           
        }
-    
-    public static func areSpent(data: String) -> Data {
+    public static func areSpent(data: Data) -> Data{
         let function = Function(name: "areSpent", parameters: [.dynamicBytes])
         let encoder = ABIEncoder()
-        try! encoder.encode(function: function, arguments: [data.data(using: .utf8)])
+        try! encoder.encode(function: function, arguments: [data])
         return encoder.data
         
     }
+    public static func genDepositProof() -> Data{
+        let function = Function(name: "deposit", parameters: [.uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256),.uint(bits: 256), .bytes(137)])
+              let encoder = ABIEncoder()
+              try! encoder.encode(function: function, arguments: [])
+              return encoder.data
+    }
     
-    
-    public static func bytesToHex(bytes: [UInt32], spacing: String) -> String
-    {
-        var hexString: String = ""
-        var count = bytes.count
-        for byte in bytes
-        {
-            hexString.append(String(format:"%02X", byte))
-            count = count - 1
-            if count > 0
-            {
-                hexString.append(spacing)
-            }
-        }
-        return hexString
+}
+
+
+
+extension Array where Element == UInt8 {
+    var data : Data{
+        return Data(self)
     }
 }
 
 
- extension Array where Element == UInt8 {
-  func bytesToHex(spacing: String) -> String {
-    var hexString: String = ""
-    var count = self.count
-    for byte in self
-    {
-        hexString.append(String(format:"%02X", byte))
-        count = count - 1
-        if count > 0
-        {
-            hexString.append(spacing)
-        }
-    }
-    return hexString
-}
-}
+

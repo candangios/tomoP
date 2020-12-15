@@ -190,13 +190,11 @@
 		84657F82257F267200A9D02E /* TomoP */ = {
 			isa = PBXGroup;
 			children = (
-				84657F9C2583773B00A9D02E /* index.js */,
-				84657F96258331CB00A9D02E /* JSBridge.swift */,
+				84657FA22588B3E900A9D02E /* Deposit */,
+				84657FA12588B39200A9D02E /* Extentions */,
+				84657FA02588B38600A9D02E /* Code */,
 				84657F83257F267200A9D02E /* TomoPCoordinator.swift */,
-				84657F90257F405300A9D02E /* Data.swift */,
-				84657F8C257F32B500A9D02E /* String.swift */,
 				84657F84257F267200A9D02E /* NetworkService */,
-				84657F8E257F32D600A9D02E /* UTXO.swift */,
 			);
 			path = TomoP;
 			sourceTree = "<group>";
@@ -209,6 +207,32 @@
 				84657F87257F267200A9D02E /* TomoPAPI.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		84657FA02588B38600A9D02E /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				84657F8E257F32D600A9D02E /* UTXO.swift */,
+				84657F9C2583773B00A9D02E /* index.js */,
+				84657F96258331CB00A9D02E /* JSBridge.swift */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		84657FA12588B39200A9D02E /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				84657F90257F405300A9D02E /* Data.swift */,
+				84657F8C257F32B500A9D02E /* String.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		84657FA22588B3E900A9D02E /* Deposit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Deposit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -17,14 +17,53 @@ import PromiseKit
 
 protocol TomoPProtocol{
     func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]>
-    func areSpent(utxo: UTXO) -> Promise<Bool>
+    func areSpent(utxos: [UTXO], data: Data, hexCode: String) -> Promise<[UTXO]>
 }
 final class TomoPNetwork : TomoPProtocol{
-    func areSpent(utxo: UTXO) -> Promise<Bool> {
-        return Promise{seal in
-            seal.fulfill(true)
+    func areSpent(utxos: [UTXO] ,data: Data, hexCode: String) -> Promise<[UTXO]> {
+        return Promise{ seal in
+            let encode = TomoPEncoder.areSpent(data: data)
+            let hex = String(encode.hexEncoded.prefix(138)) + hexCode
+            provider.request(.getUTXOs(hexData:hex)) { results in
+                switch results{
+                case .success(let res):
+                    do {
+                        let balanceDecodable = try res.map(RPCTomoPResults.self)
+                        let a = String(balanceDecodable.result.dropFirst(130))
+                        let data = Data(hex: a)
+                        let decoder = ABIDecoder(data: data)
+                        let utsxos_areSpent = try decoder.decodeArray(type: .bool, count: data.count/32)
+                        var UTXOs_areSpent = [UTXO]()
+                        
+                        if utsxos_areSpent.count > 0{
+                            for index in 0...utsxos_areSpent.count - 1 {
+                                switch utsxos_areSpent[index] {
+                                case .bool(let areSpent):
+                                    if areSpent == false{
+                                        var utxo = utxos[index]
+                                        utxo.areSpent = false
+                                        UTXOs_areSpent.append(utxo)
+                                    }
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                        seal.fulfill(UTXOs_areSpent)
+                    } catch  {
+                        seal.reject(error)
+                    }
+                    
+                case .failure(let error):
+                    seal.reject(error)
+                }
+            }
+            
         }
+        
+        
     }
+    
     func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]> {
         return Promise{ seal in
             let encode = TomoPEncoder.getUTXOs(index: index, limit:limit-1)
