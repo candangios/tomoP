@@ -10,6 +10,11 @@
 		27911B153E0FCDF0939542BE /* Pods_TomoPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C1B3B9A0BD2853BCF32ABB /* Pods_TomoPTests.framework */; };
 		488315CAFB28EE13C80FF69B /* Pods_TomoP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C893098972A87D1A39534C /* Pods_TomoP.framework */; };
 		6EBFA55098DCD80BD748D998 /* Pods_TomoP_TomoPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF992D6D40F4323A0F51BA16 /* Pods_TomoP_TomoPUITests.framework */; };
+		8459B6DD2589E79800171A35 /* UTXOStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459B6DC2589E79800171A35 /* UTXOStorage.swift */; };
+		8459B6DF2589EAA400171A35 /* Crawler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459B6DE2589EAA400171A35 /* Crawler.swift */; };
+		8459B6E3258A0C0F00171A35 /* MainTomoPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459B6E1258A0C0F00171A35 /* MainTomoPVC.swift */; };
+		8459B6E4258A0C0F00171A35 /* MainTomoPVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8459B6E2258A0C0F00171A35 /* MainTomoPVC.xib */; };
+		8459B6E6258A0C6000171A35 /* TomoPTXType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459B6E5258A0C6000171A35 /* TomoPTXType.swift */; };
 		84657F53257F24EC00A9D02E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84657F52257F24EC00A9D02E /* AppDelegate.swift */; };
 		84657F55257F24EC00A9D02E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84657F54257F24EC00A9D02E /* SceneDelegate.swift */; };
 		84657F57257F24EC00A9D02E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84657F56257F24EC00A9D02E /* ViewController.swift */; };
@@ -53,6 +58,11 @@
 		34C1B3B9A0BD2853BCF32ABB /* Pods_TomoPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TomoPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B48D2DCBCBD91196D694AA /* Pods-TomoP-TomoPUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoP-TomoPUITests.debug.xcconfig"; path = "Target Support Files/Pods-TomoP-TomoPUITests/Pods-TomoP-TomoPUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		765C1C5585A91B10E7EF794C /* Pods-TomoP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoP.release.xcconfig"; path = "Target Support Files/Pods-TomoP/Pods-TomoP.release.xcconfig"; sourceTree = "<group>"; };
+		8459B6DC2589E79800171A35 /* UTXOStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTXOStorage.swift; sourceTree = "<group>"; };
+		8459B6DE2589EAA400171A35 /* Crawler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crawler.swift; sourceTree = "<group>"; };
+		8459B6E1258A0C0F00171A35 /* MainTomoPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTomoPVC.swift; sourceTree = "<group>"; };
+		8459B6E2258A0C0F00171A35 /* MainTomoPVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTomoPVC.xib; sourceTree = "<group>"; };
+		8459B6E5258A0C6000171A35 /* TomoPTXType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomoPTXType.swift; sourceTree = "<group>"; };
 		84657F4F257F24EC00A9D02E /* TomoP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TomoP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84657F52257F24EC00A9D02E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84657F54257F24EC00A9D02E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +142,25 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8459B6DB2589B3EE00171A35 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				84657F8E257F32D600A9D02E /* UTXO.swift */,
+				8459B6DC2589E79800171A35 /* UTXOStorage.swift */,
+				8459B6DE2589EAA400171A35 /* Crawler.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		8459B6E0258A0BE000171A35 /* VIewcontrolers */ = {
+			isa = PBXGroup;
+			children = (
+				8459B6E1258A0C0F00171A35 /* MainTomoPVC.swift */,
+				8459B6E2258A0C0F00171A35 /* MainTomoPVC.xib */,
+			);
+			path = VIewcontrolers;
+			sourceTree = "<group>";
+		};
 		84657F46257F24EC00A9D02E = {
 			isa = PBXGroup;
 			children = (
@@ -190,11 +219,14 @@
 		84657F82257F267200A9D02E /* TomoP */ = {
 			isa = PBXGroup;
 			children = (
+				8459B6E0258A0BE000171A35 /* VIewcontrolers */,
+				8459B6DB2589B3EE00171A35 /* Storage */,
 				84657FA22588B3E900A9D02E /* Deposit */,
 				84657FA12588B39200A9D02E /* Extentions */,
-				84657FA02588B38600A9D02E /* Code */,
+				84657FA02588B38600A9D02E /* Core */,
 				84657F83257F267200A9D02E /* TomoPCoordinator.swift */,
 				84657F84257F267200A9D02E /* NetworkService */,
+				8459B6E5258A0C6000171A35 /* TomoPTXType.swift */,
 			);
 			path = TomoP;
 			sourceTree = "<group>";
@@ -203,20 +235,19 @@
 			isa = PBXGroup;
 			children = (
 				84657F85257F267200A9D02E /* TomoPProtocol.swift */,
-				84657F86257F267200A9D02E /* TomoPEncode.swift */,
 				84657F87257F267200A9D02E /* TomoPAPI.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
-		84657FA02588B38600A9D02E /* Code */ = {
+		84657FA02588B38600A9D02E /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				84657F8E257F32D600A9D02E /* UTXO.swift */,
+				84657F86257F267200A9D02E /* TomoPEncode.swift */,
 				84657F9C2583773B00A9D02E /* index.js */,
 				84657F96258331CB00A9D02E /* JSBridge.swift */,
 			);
-			path = Code;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		84657FA12588B39200A9D02E /* Extentions */ = {
@@ -344,6 +375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8459B6E4258A0C0F00171A35 /* MainTomoPVC.xib in Resources */,
 				84657F5F257F24F000A9D02E /* LaunchScreen.storyboard in Resources */,
 				84657F5C257F24F000A9D02E /* Assets.xcassets in Resources */,
 				84657F5A257F24EC00A9D02E /* Main.storyboard in Resources */,
@@ -476,16 +508,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				84657F89257F267200A9D02E /* TomoPProtocol.swift in Sources */,
+				8459B6DD2589E79800171A35 /* UTXOStorage.swift in Sources */,
+				8459B6DF2589EAA400171A35 /* Crawler.swift in Sources */,
 				84657F91257F405300A9D02E /* Data.swift in Sources */,
 				84657F8A257F267200A9D02E /* TomoPEncode.swift in Sources */,
 				84657F8B257F267200A9D02E /* TomoPAPI.swift in Sources */,
 				84657F88257F267200A9D02E /* TomoPCoordinator.swift in Sources */,
 				84657F57257F24EC00A9D02E /* ViewController.swift in Sources */,
+				8459B6E6258A0C6000171A35 /* TomoPTXType.swift in Sources */,
 				84657F53257F24EC00A9D02E /* AppDelegate.swift in Sources */,
 				84657F8F257F32D600A9D02E /* UTXO.swift in Sources */,
 				84657F8D257F32B500A9D02E /* String.swift in Sources */,
 				84657F97258331CB00A9D02E /* JSBridge.swift in Sources */,
 				84657F55257F24EC00A9D02E /* SceneDelegate.swift in Sources */,
+				8459B6E3258A0C0F00171A35 /* MainTomoPVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,26 +20,30 @@ class TomoPEncoder{
         try! encoder.encode(function: function, arguments: [range])
         return encoder.data
     }
-    public static func getUTXO(index: Int) -> Data {
-           let function = Function(name: "getUTXO", parameters: [.uint(bits: 256)])
-           let encoder = ABIEncoder()
-           try! encoder.encode(function: function, arguments: [index])
-           return encoder.data
-       }
     public static func areSpent(data: Data) -> Data{
         let function = Function(name: "areSpent", parameters: [.dynamicBytes])
         let encoder = ABIEncoder()
         try! encoder.encode(function: function, arguments: [data])
         return encoder.data
-        
     }
     public static func genDepositProof() -> Data{
         let function = Function(name: "deposit", parameters: [.uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256),.uint(bits: 256), .bytes(137)])
-              let encoder = ABIEncoder()
-              try! encoder.encode(function: function, arguments: [])
-              return encoder.data
+        let encoder = ABIEncoder()
+        try! encoder.encode(function: function, arguments: [])
+        return encoder.data
     }
-    
+    public static func privateSend() -> Data{
+        let function = Function(name: "privateSend", parameters: [.uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256),.uint(bits: 256), .bytes(137)])
+        let encoder = ABIEncoder()
+        try! encoder.encode(function: function, arguments: [])
+        return encoder.data
+    }
+    public static func withdrawFunds() -> Data{
+        let function = Function(name: "withdrawFunds", parameters: [.uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256), .uint(bits: 256),.uint(bits: 256), .bytes(137)])
+               let encoder = ABIEncoder()
+               try! encoder.encode(function: function, arguments: [])
+               return encoder.data
+    }
 }
 
 

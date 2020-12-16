@@ -8,6 +8,7 @@ target 'TomoP' do
   pod 'BigInt'
   pod 'PromiseKit'
   pod 'Moya'
+  pod 'RealmSwift', '~> 3.20.0'
   
 
   pod 'TrustCore', :git=>'https://github.com/TrustWallet/trust-core', :branch=>'master'

@@ -17,10 +17,10 @@ import PromiseKit
 
 protocol TomoPProtocol{
     func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]>
-    func areSpent(utxos: [UTXO], data: Data, hexCode: String) -> Promise<[UTXO]>
+    func areSpent(utxos: [UTXO], data: Data, hexCode: String) -> Promise<[Bool]>
 }
 final class TomoPNetwork : TomoPProtocol{
-    func areSpent(utxos: [UTXO] ,data: Data, hexCode: String) -> Promise<[UTXO]> {
+    func areSpent(utxos: [UTXO] ,data: Data, hexCode: String) -> Promise<[Bool]> {
         return Promise{ seal in
             let encode = TomoPEncoder.areSpent(data: data)
             let hex = String(encode.hexEncoded.prefix(138)) + hexCode
@@ -33,23 +33,18 @@ final class TomoPNetwork : TomoPProtocol{
                         let data = Data(hex: a)
                         let decoder = ABIDecoder(data: data)
                         let utsxos_areSpent = try decoder.decodeArray(type: .bool, count: data.count/32)
-                        var UTXOs_areSpent = [UTXO]()
-                        
+                        var areSpent_UTXOs = [Bool]()
                         if utsxos_areSpent.count > 0{
                             for index in 0...utsxos_areSpent.count - 1 {
                                 switch utsxos_areSpent[index] {
                                 case .bool(let areSpent):
-                                    if areSpent == false{
-                                        var utxo = utxos[index]
-                                        utxo.areSpent = false
-                                        UTXOs_areSpent.append(utxo)
-                                    }
+                                    areSpent_UTXOs.append(areSpent)
                                 default:
                                     break
                                 }
                             }
                         }
-                        seal.fulfill(UTXOs_areSpent)
+                        seal.fulfill(areSpent_UTXOs)
                     } catch  {
                         seal.reject(error)
                     }
@@ -58,10 +53,7 @@ final class TomoPNetwork : TomoPProtocol{
                     seal.reject(error)
                 }
             }
-            
         }
-        
-        
     }
     
     func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]> {
