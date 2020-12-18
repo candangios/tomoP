@@ -12,14 +12,15 @@ import RealmSwift
 
 
 class Crawler: Object {
-    @objc dynamic var name = "Crawler"
     @objc dynamic var index: Int = 0
-    convenience init(index:Int ){
+    @objc dynamic var ownAddress: String = ""
+    convenience init(index:Int, ownAddress: String ){
         self.init()
         self.index = index
+        self.ownAddress = ownAddress
     }
     override static func primaryKey() -> String? {
-        return "name"
+        return "ownAddress"
     }
 }
 

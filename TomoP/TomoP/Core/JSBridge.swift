@@ -12,7 +12,7 @@ import BigInt
 class JSBridge {
     let context = JSContext ()
     init?(){
-        if let filepath = Bundle.main.path(forResource: "index", ofType: "js") {
+        if let filepath = Bundle.main.path(forResource: "trust-min", ofType: "js") {
             do {
                 let jsSource = try String(contentsOfFile: filepath)
                 context?.evaluateScript(jsSource)
@@ -21,6 +21,12 @@ class JSBridge {
                         print("JS Exception:", exc.toString() ?? "")
                     }
                 }
+                
+                context?.evaluateScript("var console = { log: function(message) { _consoleLog(message) } }")
+                let consoleLog: @convention(block) (String) -> Void = { message in
+                    print("console.log: " + message)
+                }
+                context?.setObject(unsafeBitCast(consoleLog, to: AnyObject.self), forKeyedSubscript: "_consoleLog" as (NSCopying & NSObjectProtocol)?)
             } catch {
                 return nil
             }
@@ -117,8 +123,9 @@ class JSBridge {
         guard let js = context?.evaluateScript(
             """
             (function(){
-            let proof = tomoprivacyjs.default.Wallet.genDepositProof("1000000000000000000000", "\(pk)");
-            return proof
+
+            let a = parcelRequire
+            console.log(a)
             })()
             """)  else{
                 return .none

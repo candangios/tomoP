@@ -25,6 +25,7 @@ import RealmSwift
 
 
 class UTXO: Object {
+    @objc dynamic var ownAddress: String = ""
     @objc dynamic var commitmentX: String = ""
     @objc dynamic var commitmentYBit: String = ""
     @objc dynamic var pubkeyX: String = ""
@@ -37,10 +38,12 @@ class UTXO: Object {
     @objc dynamic var txid: String = ""
     @objc dynamic var areSpent: Bool = false
     @objc dynamic var amountValue = "0"
-    convenience init?(data: ABIValue){
+    convenience init?(data: ABIValue, ownAddress: String){
+      
         switch data {
         case.tuple(let values):
             self.init()
+            self.ownAddress = ownAddress
             for value in values{
                 switch value.type {
                 case.array(.uint(bits: 256), 3):

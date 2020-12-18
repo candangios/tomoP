@@ -16,7 +16,7 @@ import PromiseKit
 
 
 protocol TomoPProtocol{
-    func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]>
+    func getUTXOs(index: Int, limit: Int, ownAddress: String) -> Promise<[UTXO]>
     func areSpent(utxos: [UTXO], data: Data, hexCode: String) -> Promise<[Bool]>
 }
 final class TomoPNetwork : TomoPProtocol{
@@ -56,7 +56,7 @@ final class TomoPNetwork : TomoPProtocol{
         }
     }
     
-    func getUTXOs(index: Int, limit: Int) -> Promise<[UTXO]> {
+    func getUTXOs(index: Int, limit: Int, ownAddress: String) -> Promise<[UTXO]> {
         return Promise{ seal in
             let encode = TomoPEncoder.getUTXOs(index: index, limit:limit-1)
             provider.request(.getUTXOs(hexData:encode.hexEncoded)) { results in
@@ -69,7 +69,7 @@ final class TomoPNetwork : TomoPProtocol{
                         let utsxos = try decoder.decodeArray(type:.tuple([.array(.uint(bits: 256), 3), .array(.uint(bits: 8), 3), .array(.uint(bits: 256), 2),.uint(bits: 256), .uint(bits: 256)]), count: limit)
                         var utxos = [UTXO]()
                         for item in utsxos {
-                            if let utxo = UTXO(data: item){
+                            if let utxo = UTXO(data: item, ownAddress: ownAddress){
                                 utxos.append(utxo)
                             }
                         }

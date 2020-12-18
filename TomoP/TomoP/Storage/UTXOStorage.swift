@@ -23,11 +23,11 @@ class UTXOStorage {
         return realm.objects(Crawler.self).first!.index
     }
     
-    init(realm: Realm) {
+    init(realm: Realm, ownAddress: String) {
         self.realm = realm
         if realm.objects(Crawler.self).first == nil{
             try? realm.write {
-                realm.add(Crawler(index: 0), update: .all)
+                realm.add(Crawler(index: 0, ownAddress: ownAddress), update: .all)
             }
         }
     }
