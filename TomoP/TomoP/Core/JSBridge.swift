@@ -7,130 +7,150 @@
 //
 
 import Foundation
-import JavaScriptCore
+import UIKit
 import BigInt
-class JSBridge {
-    let context = JSContext ()
-    init?(){
-        if let filepath = Bundle.main.path(forResource: "trust-min", ofType: "js") {
-            do {
-                let jsSource = try String(contentsOfFile: filepath)
-                context?.evaluateScript(jsSource)
-                context?.exceptionHandler = { context, exception in
-                    if let exc = exception {
-                        print("JS Exception:", exc.toString() ?? "")
-                    }
-                }
-                
-                context?.evaluateScript("var console = { log: function(message) { _consoleLog(message) } }")
-                let consoleLog: @convention(block) (String) -> Void = { message in
-                    print("console.log: " + message)
-                }
-                context?.setObject(unsafeBitCast(consoleLog, to: AnyObject.self), forKeyedSubscript: "_consoleLog" as (NSCopying & NSObjectProtocol)?)
-            } catch {
-                return nil
-            }
-        }
+import WebKit
+import PromiseKit
+
+
+class JSBridge: NSObject {
+    private var webView = WKWebView()
+    override init(){
+        let filepath = Bundle.main.path(forResource: "index", ofType: "js")!
+                super.init()
+                let jsSource = try! String(contentsOfFile: filepath)
+                let config = WKWebViewConfiguration()
+                let jsScript = WKUserScript(source: jsSource, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+                config.userContentController.addUserScript(jsScript)
+                self.webView = WKWebView(frame: .zero, configuration: config)
+                self.webView.navigationDelegate = self
+        print(self.webView.navigationDelegate)
+        
     }
     
     func checkOwnership(utxo: UTXO,privSpendKey: String) -> String?   {
-        guard let js = context?.evaluateScript(
-            """
-            (function(){
-            const utxo = {
-            '0': {
-            '0': '\(utxo.commitmentX.description)',
-            '1': '\(utxo.pubkeyX.description)',
-            '2': '\(utxo.txPubX.description)'
-            },
-            '1': {
-            '0': '\(utxo.commitmentYBit.description)',
-            '1': '\(utxo.pubkeyYBit.description)',
-            '2': '\(utxo.txPubYBit.description)'
-            },
-            '2': {
-            '0': '\(utxo.amount.description)',
-            '1': '\(utxo.mask.description)'
-            },
-            '3': parseInt(\(utxo.index.description)),
-            '4': parseInt(\(utxo.txid.description))
-            };
-            const utxoInstance = new tomoprivacyjs.default.UTXO(utxo);
-            const isMine = utxoInstance.checkOwnership('\(privSpendKey)');
-            return isMine && isMine.amount ? isMine.amount : null ;
-            
-            })()
-            """)  else{
-                return .none
-        }
-        if js.toString() == "null"{
-            return .none
-        }
-        return js.toString()
+        return .none
+//        guard let js = context?.evaluateScript(
+//            """
+//            (function(){
+//            const utxo = {
+//            '0': {
+//            '0': '\(utxo.commitmentX.description)',
+//            '1': '\(utxo.pubkeyX.description)',
+//            '2': '\(utxo.txPubX.description)'
+//            },
+//            '1': {
+//            '0': '\(utxo.commitmentYBit.description)',
+//            '1': '\(utxo.pubkeyYBit.description)',
+//            '2': '\(utxo.txPubYBit.description)'
+//            },
+//            '2': {
+//            '0': '\(utxo.amount.description)',
+//            '1': '\(utxo.mask.description)'
+//            },
+//            '3': parseInt(\(utxo.index.description)),
+//            '4': parseInt(\(utxo.txid.description))
+//            };
+//            const utxoInstance = new tomoprivacyjs.default.UTXO(utxo);
+//            const isMine = utxoInstance.checkOwnership('\(privSpendKey)');
+//            return isMine && isMine.amount ? isMine.amount : null ;
+//
+//            })()
+//            """)  else{
+//                return .none
+//        }
+//        if js.toString() == "null"{
+//            return .none
+//        }
+//        return js.toString()
     }
     
     func getkeyImage(utxos: [UTXO], pk: String) -> Array<UInt8>?   {
-        var utxos_String = ""
-        for utxo in utxos{
-            utxos_String.append("""
-                {
-                '0': {
-                '0': '\(utxo.commitmentX.description)',
-                '1': '\(utxo.pubkeyX.description)',
-                '2': '\(utxo.txPubX.description)'
-                },
-                '1': {
-                '0': '\(utxo.commitmentYBit.description)',
-                '1': '\(utxo.pubkeyYBit.description)',
-                '2': '\(utxo.txPubYBit.description)'
-                },
-                '2': {
-                '0': '\(utxo.amount.description)',
-                '1': '\(utxo.mask.description)'
-                },
-                '3': parseInt(\(utxo.index.description)),
-                '4': parseInt(\(utxo.txid.description))
-                },
-                """)
-        }
-        utxos_String = String(utxos_String.dropLast())
-        guard let js = context?.evaluateScript(
-            """
-            (function(){
-            const rawUtxos = [\(utxos_String)];
-            return tomoprivacyjs.default.Wallet.keyImages(rawUtxos, '\(pk)');
-            })()
-            """)  else{
-                return .none
-        }
-        return js.toArray() as? Array<UInt8>
+        return .none
+//        var utxos_String = ""
+//        for utxo in utxos{
+//            utxos_String.append("""
+//                {
+//                '0': {
+//                '0': '\(utxo.commitmentX.description)',
+//                '1': '\(utxo.pubkeyX.description)',
+//                '2': '\(utxo.txPubX.description)'
+//                },
+//                '1': {
+//                '0': '\(utxo.commitmentYBit.description)',
+//                '1': '\(utxo.pubkeyYBit.description)',
+//                '2': '\(utxo.txPubYBit.description)'
+//                },
+//                '2': {
+//                '0': '\(utxo.amount.description)',
+//                '1': '\(utxo.mask.description)'
+//                },
+//                '3': parseInt(\(utxo.index.description)),
+//                '4': parseInt(\(utxo.txid.description))
+//                },
+//                """)
+//        }
+//        utxos_String = String(utxos_String.dropLast())
+//        guard let js = context?.evaluateScript(
+//            """
+//            (function(){
+//            const rawUtxos = [\(utxos_String)];
+//            return tomoprivacyjs.default.Wallet.keyImages(rawUtxos, '\(pk)');
+//            })()
+//            """)  else{
+//                return .none
+//        }
+//        return js.toArray() as? Array<UInt8>
     }
     
     func privSpendKey(pk: String) -> String?{
-        guard let privSpendKey = context?.evaluateScript(
-            """
-            (function(){
-            const addresses = tomoprivacyjs.default.Address.generateKeys("\(pk)");
-            return addresses.privSpendKey
-            })()
-            """)  else{
-                return .none
-        }
-        return privSpendKey.toString()
+        return .none
+//        guard let privSpendKey = context?.evaluateScript(
+//            """
+//            (function(){
+//            const addresses = tomoprivacyjs.default.Address.generateKeys("\(pk)");
+//            return addresses.privSpendKey
+//            })()
+//            """)  else{
+//                return .none
+//        }
+//        return privSpendKey.toString()
     }
     
     func genDepositProof(amount: String, pk: String) -> String? {
-        guard let js = context?.evaluateScript(
-            """
-            (function(){
-
-            let a = parcelRequire
-            console.log(a)
-            })()
-            """)  else{
-                return .none
+        self.webView.evaluateJavaScript("""
+        (function(){
+          let proof = tomoprivacyjs.default.Wallet.genDepositProof("1000000000000000000000", "\(pk)");
+          return proof
+        })()
+        """) { (data, error) in
+            print(data)
         }
-        print(js)
-        return js.toString()
+        return .none
+//        guard let js = context?.evaluateScript(
+//            """
+//            (function(){
+//            })()
+//            """)  else{
+//                return .none
+//        }
+//        print(js)
+//        return js.toString()
     }
+}
+
+extension JSBridge: WKNavigationDelegate{
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let pk = "6378de134e758bd024ccaf0e6d5508f4911ba57d2c1e79d15c099d0d7f285a8d"
+        webView.evaluateJavaScript("""
+          (function(){
+                           let proof = tomoprivacyjs.default.Wallet.genDepositProof("1000000000000000000000", "\(pk)");
+                           return proof
+            })()
+        """) { (data, error) in
+            print(data)
+        }
+        
+    }
+    
 }

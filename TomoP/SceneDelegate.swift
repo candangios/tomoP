@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+   var tomop: TomoPCoordinator!
     var window: UIWindow?
        func tomopConfiguration() -> Realm.Configuration {
            var config = Realm.Configuration()
@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         let realm = try! Realm(configuration: tomopConfiguration())
-        let tomop = TomoPCoordinator(realm: realm)
+        self.tomop = TomoPCoordinator(realm: realm)
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
